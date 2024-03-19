@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@model ProjectsListViewModel
+
+    <h1>Water Project</h1>
+
+
+        @foreach (Project p in Model.Projects)
+        {
+            <h3>@p.projectName</h3>
+            <ul>
+                <li>Project Type: @p.projectType</li>
+                <li>Project Name: @p.projectName</li>
+                <li>Impact: @p.projectImpact served</li>
+                <li>Installation Date: @p.projectInstallation</li>
+                <li>Project Phase: @p.projectPhase</li>
+            </ul>
+        }
+
+<div page-model="@Model.PaginationInfo" page-action="Index"></div>
