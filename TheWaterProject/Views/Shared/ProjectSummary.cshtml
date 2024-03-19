@@ -1,0 +1,18 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Project
+<div class="card m-1 p-1">
+    <h4>
+        @Model.projectName
+        <span class="badge rounded-pill bg-primary text-white float-end"><small>@Model.projectImpact served</small></span>
+    </h4>
+    <ul>
+        <li>Project Type: @Model.projectType</li>
+        <li>Project Name: @Model.projectName</li>
+        <li>Installation Date: @Model.projectInstallation</li>
+        <li>Project Phase: @Model.projectPhase</li>
+    </ul>
+</div>
