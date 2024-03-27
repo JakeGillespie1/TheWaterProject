@@ -15,6 +15,12 @@ builder.Services.AddDbContext<WaterProjectContext>(options =>
 
 builder.Services.AddScoped<IWaterRepository, EFWaterRepository>();
 
+builder.Services.AddRazorPages();
+
+//These two lines enable us to use sessions
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -28,13 +34,19 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 
+app.UseSession();
+
 app.UseRouting();
 
 app.UseAuthorization();
 
-//Improving the URLs
-app.MapControllerRoute("pagination", "Projects/{pageNum}", new {Controller = "Home", action="Index"});
-
+//Improving the URLs (they are implemented in the order you put them
+app.MapControllerRoute("pagenumandtype", "{projectType}/{pageNum}", new {controller = "Home", action = "Index"});
+app.MapControllerRoute("pagination", "{pageNum}", new { Controller = "Home", action = "Index", pageNum = 1 });
+//THis is what happens when we get a project type without the page number
+app.MapControllerRoute("projectType", "{projectType}", new { Controller = "Home", action = "Index", pageNum = 1 });
 app.MapDefaultControllerRoute();
+
+app.MapRazorPages();
 
 app.Run();
